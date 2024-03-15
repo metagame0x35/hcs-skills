@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/hedera-dev/hcs-skills/schemas/hcs-skill--v1.schema.json",
+  "title": "HCS Skill. Version 1.",
+  "description": "Skill messages submitted to a Hedera Consesnus Service topic used in the HCS Skills demo app.",
+  "type": "object",
+  "properties": {
+    "type": {
+      "const": "hcs-skill/v1"
+    },
+    "accountId": {
+      "type": "string",
+      "pattern": "^\\d+.\\d+.\\d+$"
+    },
+    "userName": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 100
+    },
+    "skillName": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 100
+    },
+    "hash": {
+      "type": "string",
+      "minLength": 64,
+      "maxLength": 64
+    }
+  },
+  "required": [
+    "type",
+    "accountId",
+    "userName",
+    "skillName",
+    "hash"
+  ],
+  "additionalProperties": false
+}
