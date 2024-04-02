@@ -1,6 +1,6 @@
 const ajvModule = require('ajv/dist/2020.js');
 
-const { addHash } = require('../util/objects.js');
+const { addHash } = require('./objects.js');
 
 const ajv = new ajvModule({
   allErrors: true,
@@ -12,6 +12,8 @@ const supportedSchemas = {
 
 const schemaPathPrefix = '../schemas/';
 
+// Maintain a versioned cache of schemas.
+// Initial loading is performed from files present within `schemaPathPrefix`
 function skillVerify(obj) {
   const schemaName = obj.type;
   const [schemaType, schemaVersion] = schemaName.split('/');
@@ -30,16 +32,16 @@ function skillVerify(obj) {
   }
 
   // NOTE: Schema validation
-  // Step (NNN) in the accompanying tutorial
+  // Step (5) in the accompanying tutorial
   const isValid = /* ... */;
   if (!isValid) {
     return validator.errors;
   }
 
   // NOTE: Custom validation
-  // Step (NNN) in the accompanying tutorial
-  const objWithUpdatedHash = addHash(obj)
-  if (/* ... */) {
+  // Step (6) in the accompanying tutorial
+  const objWithUpdatedHash = /* ... */;
+  if (obj.hash !== /* ... */) {
     return [{
       instancePath: '/hash',
       message: 'hash mismatch',

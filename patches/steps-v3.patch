@@ -1,0 +1,107 @@
+diff --git a/front/index.js b/front/index.js
+index a086b2b..10845c4 100644
+--- a/front/index.js
++++ b/front/index.js
+@@ -21,10 +21,8 @@ async function subExistingTopic() {
+ 
+   // NOTE: Subscribe to topic
+   // Step (12) in the accompanying tutorial
+-  // const response = await fetch(
+-  //   /* ... */,
+   const response = await fetch(
+-    `/api/v1/topic/subscribe/${textInputTopicId}`,
++    /* ... */,
+     {
+       method: 'GET',
+       headers: {
+diff --git a/util/skill-publish.js b/util/skill-publish.js
+index dd76192..97b43ee 100644
+--- a/util/skill-publish.js
++++ b/util/skill-publish.js
+@@ -24,13 +24,11 @@ async function skillPublish(topicId, accountId, userName, skillName) {
+ 
+   // NOTE: Add hash to message
+   // Step (7) in the accompanying tutorial
+-  // const obj = /* ... */;
+-  const obj = addHash(skillData);
++  const obj = /* ... */;
+ 
+   // NOTE: Verify message
+   // Step (8) in the accompanying tutorial
+-  // const validationErrors = /* ... */;
+-  const validationErrors = skillVerify(obj);
++  const validationErrors = /* ... */;
+   if (validationErrors) {
+     console.error(validationErrors);
+     throw new Error('skill validation failed');
+@@ -39,11 +37,7 @@ async function skillPublish(topicId, accountId, userName, skillName) {
+   // NOTE: Submit message to HCS topic
+   // Step (9) in the accompanying tutorial
+   const hcsMsg = serialise(obj);
+-  // const topicMsgSubmitTx = await new TopicMessageSubmitTransaction(/* ... */).execute(client);
+-  const topicMsgSubmitTx = await new TopicMessageSubmitTransaction({
+-    topicId: topicId,
+-    message: hcsMsg,
+-  }).execute(client);
++  const topicMsgSubmitTx = await new TopicMessageSubmitTransaction(/* ... */).execute(client);
+ 
+   const topicMsgSubmitReceipt = await topicMsgSubmitTx.getReceipt(client);
+ 
+diff --git a/util/skill-subscribe.js b/util/skill-subscribe.js
+index 8fef6fe..8b4d80d 100644
+--- a/util/skill-subscribe.js
++++ b/util/skill-subscribe.js
+@@ -33,12 +33,9 @@ async function skillGetAll(topicId, callback) {
+ 
+   // NOTE: Mirror Node query of HCS topic
+   // Step (10) in the accompanying tutorial
+-  // const mirrorNodeUrl =
+-  //   `https://testnet.mirrornode.hedera.com/api/v1/topics/${/* ... */}/messages`;
+-  // const fetchResponse = /* ... */;
+   const mirrorNodeUrl =
+-    `https://testnet.mirrornode.hedera.com/api/v1/topics/${topicId.toString()}/messages`;
+-  const fetchResponse = await fetch(mirrorNodeUrl);
++    `https://testnet.mirrornode.hedera.com/api/v1/topics/${/* ... */}/messages`;
++  const fetchResponse = /* ... */;
+   const response = await fetchResponse.json();
+   response.messages.forEach((msgBin) => parseSkill(msgBin.message, 'base64', callback));
+ 
+@@ -67,11 +64,8 @@ async function skillSubscribe(topicId, callback) {
+ 
+   // NOTE: Subscribe to HCS topic
+   // Step (11) in the accompanying tutorial
+-  // const subscription = new TopicMessageQuery()
+-  //   /* ... */
+-  //   .subscribe(client, (msgBin) => parseSkill(msgBin.contents, 'utf8', callback));
+   const subscription = new TopicMessageQuery()
+-    .setTopicId(topicId)
++    /* ... */
+     .subscribe(client, (msgBin) => parseSkill(msgBin.contents, 'utf8', callback));
+ 
+   return subscription;
+diff --git a/util/skill-verify.js b/util/skill-verify.js
+index b8eef46..32fd962 100644
+--- a/util/skill-verify.js
++++ b/util/skill-verify.js
+@@ -33,18 +33,15 @@ function skillVerify(obj) {
+ 
+   // NOTE: Schema validation
+   // Step (5) in the accompanying tutorial
+-  // const isValid = /* ... */;
+-  const isValid = validator(obj);
++  const isValid = /* ... */;
+   if (!isValid) {
+     return validator.errors;
+   }
+ 
+   // NOTE: Custom validation
+   // Step (6) in the accompanying tutorial
+-  // const objWithUpdatedHash = /* ... */;
+-  // if (obj.hash !== /* ... */) {
+-  const objWithUpdatedHash = addHash(obj);
+-  if (obj.hash !== objWithUpdatedHash.hash) {
++  const objWithUpdatedHash = /* ... */;
++  if (obj.hash !== /* ... */) {
+     return [{
+       instancePath: '/hash',
+       message: 'hash mismatch',

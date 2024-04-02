@@ -10,7 +10,7 @@ async function main() {
   if (gitRemoteCliExec.stderr) {
     console.log('git error:');
     console.error(gitRemoteCliExec.stderr);
-  } else if (!gitRemoteCliExec.stdout.match(/github\.com[\:,\/][^\/]+\/hcs-skills\.git/gm)) {
+  } else if (!gitRemoteCliExec.stdout.match(/github\.com\:[a-z,A-Z,0-9,\-,\_]+\/hcs-skills\.git/gm)) {
     console.log('git remote mismatch:');
     console.error(gitRemoteCliExec.stdout);
   } else {

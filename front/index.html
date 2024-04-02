@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Submit and Stream Messages with Hedera</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.5/socket.io.js"></script>
+  <body>
+    <div class="container">
+      <h2>Submit Skill to Hedera</h2>
+      <div id="newTopicId">
+        <button onclick="subNewTopic()">Subscribe to New Topic</button>
+      </div>
+      <div id="existingTopicId">
+        <input type="text" id="textInputTopicId" placeholder="Enter Topic ID" />
+        <button onclick="subExistingTopic()">Subscribe to Existing Topic</button>
+      </div>
+      <div id="submitSkill">
+        <input type="text" id="textInputSkill" placeholder="Enter your skill" />
+        <input
+          type="text"
+          id="textInputUsername"
+          placeholder="Enter your username"
+        />
+        <input type="text" id="textInputAccountId" placeholder="Enter your account ID" />
+        <button onclick="submitToHedera()">Submit</button>
+      </div>
+    </div>
+
+    <table id="messagesTable">
+      <thead>
+        <tr>
+          <th>Skill Name</th>
+          <th>User Name</th>
+          <th>Account ID</th>
+          <th>Type</th>
+          <th>✅ Hash</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Messages will be added here -->
+      </tbody>
+    </table>
+
+    <script type="text/javascript" src="index.js"></script>
+
+  </body>
+</html>

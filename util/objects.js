@@ -12,7 +12,13 @@ const safeStableStringify = configure({
   maximumDepth: 2,
 });
 
+// convert object to string
 function serialise(obj) {
+  // note that `JSON.stringify` is not "safe" to use because key order is not part of the specification,
+  // and thus is implementation specific on the Javascript runtime.
+  // Instead, need to use a 3rd-party library to ensure this.
+  // Not doing so will result in potentially different hashes for the same object,
+  // and that will break any validation based on hashes.
   return safeStableStringify(obj);
 }
 

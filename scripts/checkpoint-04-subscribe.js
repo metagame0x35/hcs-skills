@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 
 const { client } = require('../util/sdk-client.js');
-const { skillPublish } = require('../front/skill-publish.js');
+const { skillPublish } = require('../util/skill-publish.js');
 const {
   skillGetAll,
   skillSubscribe,
-} = require('../front/skill-subscribe.js');
+} = require('../util/skill-subscribe.js');
 
 async function main() {
 
@@ -27,20 +27,24 @@ async function main() {
     validCount: 0,
     invalidCount: 0,
   };
-  await skillSubscribe('0.0.3745107', (err, result) => {
+  const subscription = await skillSubscribe('0.0.3745107', (err, result) => {
     if (err) {
       result1.invalidCount++;
     } else if (result) {
       result1.validCount++;
     }
   });
-  await skillPublish('0.0.3745107', 'aTestUser', 'aTestSkill');
+  await skillPublish('0.0.3745107', '11.22.55', 'aTestUser', 'aTestSkill');
   console.log('Waiting 5s...');
   await new Promise((resolve) => { setTimeout(resolve, 5_000) });
   console.log('skillSubscribe message counts:');
   console.log(result1);
 
   client.close();
+  console.log('Waiting 5s...');
+  await new Promise((resolve) => { setTimeout(resolve, 5_000) });
+  // Terminate the process manually, as `client.close()` does not terminate the subscription.
+  process.exit(0);
 }
 
 main();

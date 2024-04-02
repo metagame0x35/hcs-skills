@@ -1,4 +1,4 @@
-// TODO replace in memeory persistence with files or databases
+// TODO replace in memory persistence with files or databases
 // TODO handle de/serialisation
 
 const store = {

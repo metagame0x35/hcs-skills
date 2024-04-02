@@ -6,14 +6,14 @@ const {
   TopicMessageSubmitTransaction,
 } = require('@hashgraph/sdk');
 
-const server = require('../back/server.js');
+const { server } = require('../back/server.js');
 const { client } = require('../util/sdk-client.js');
 const { serialise } = require('../util/objects.js');
-const { skillPublish } = require('../front/skill-publish.js');
+const { skillPublish } = require('../util/skill-publish.js');
 const {
   skillGetAll,
   skillSubscribe,
-} = require('../front/skill-subscribe.js');
+} = require('../util/skill-subscribe.js');
 
 const request = supertest(server);
 
@@ -33,35 +33,39 @@ async function main() {
   const topicId = result4.body.topicId;
   console.log('Hashscan URL:', `https://hashscan.io/testnet/topic/${topicId}`);
 
-  // Wait for HCS Topic creation to "settle" - cannot subscribe/ submit immediately after creation
-  console.log('Waiting 5s...');
-  await new Promise((resolve) => { setTimeout(resolve, 5_000) });
+  // Wait for HCS Topic creation to propagate - cannot subscribe/ submit immediately after creation
+  console.log('Waiting 10s...');
+  await new Promise((resolve) => { setTimeout(resolve, 10_000) });
 
   function skillReadCallback(err, skill) {
     if (err) {
-      console.error('Error:', err);
+      console.error('❌ Error:', err);
     } else {
-      console.log('Skill:', skill);
+      console.log('✅ Skill:', skill);
     }
   };
 
   console.log('Submitting 3x initial to topic:', topicId);
-  await skillPublish(topicId, 'bguiz', 'Hello World - Create and fund account');
-  await (async function() { // this will fail schema validation
-    // construct fake skill message and submit to HCS topic
-    const obj = {
-      type: 'hcs-skill/v1',
-      accountId: '0.0.12345',
-      userName: 'fake',
-      skillName: '-',
-      hash: '9c17fcc378e286b2d4bcf693110fd53252eb23144818df21d86f6cdbc1c931a4',
-    };
-    await new TopicMessageSubmitTransaction({
-      topicId: topicId,
-      message: serialise(obj),
-    }).execute(client);
-  })();
-  await skillPublish(topicId, 'bguiz', 'Hello World - Hedera Smart Contracts');
+  await skillPublish(topicId, '11.22.66', 'bguiz', 'Hello World - Create and fund account');
+  try {
+    await (async function() { // this will fail schema validation
+      // construct fake skill message and submit to HCS topic
+      const obj = {
+        type: 'hcs-skill/v1',
+        accountId: '0.0.12345',
+        userName: 'fake',
+        skillName: '-',
+        hash: '9c17fcc378e286b2d4bcf693110fd53252eb23144818df21d86f6cdbc1c931a4',
+      };
+      await new TopicMessageSubmitTransaction({
+        topicId: topicId,
+        message: serialise(obj),
+      }).execute(client);
+    })();
+  } catch (ex) {
+    // do nothing
+  }
+  await skillPublish(topicId, '11.22.66', 'bguiz', 'Hello World - Hedera Smart Contracts');
 
   // Wait for HCS Topic submissions
   console.log('Waiting 5s...');
@@ -76,22 +80,26 @@ async function main() {
   await skillSubscribe(topicId, skillReadCallback);
 
   console.log('Submitting 3x additional to topic:', topicId);
-  await skillPublish(topicId, 'bguiz', 'Hedera Consensus Service - demo app');
-  await (async function() { // this will pass schema validation, but fail hash validation
-    // construct fake skill message and submit to HCS topic
-    const obj = {
-      type: 'hcs-skill/v1',
-      accountId: '0.0.12345',
-      userName: 'fake user',
-      skillName: 'fake skill',
-      hash: '9c17fcc378e286b2d4bcf693110fd53252eb23144818df21d86f6cdbc1c931a4',
-    };
-    await new TopicMessageSubmitTransaction({
-      topicId: topicId,
-      message: serialise(obj),
-    }).execute(client);
-  })();
-  await skillPublish(topicId, 'bguiz', 'Hello World - HTS Fungible Token');
+  await skillPublish(topicId, '11.22.66', 'bguiz', 'Hedera Consensus Service - demo app');
+  try {
+    await (async function() { // this will pass schema validation, but fail hash validation
+      // construct fake skill message and submit to HCS topic
+      const obj = {
+        type: 'hcs-skill/v1',
+        accountId: '0.0.12345',
+        userName: 'fake user',
+        skillName: 'fake skill',
+        hash: '9c17fcc378e286b2d4bcf693110fd53252eb23144818df21d86f6cdbc1c931a4',
+      };
+      await new TopicMessageSubmitTransaction({
+        topicId: topicId,
+        message: serialise(obj),
+      }).execute(client);
+    })();
+  } catch(ex) {
+    //do nothing
+  }
+  await skillPublish(topicId, '11.22.66', 'bguiz', 'Hello World - HTS Fungible Token');
 
   // Wait for HCS Topic Subscriptions to come through, they lag by several seconds
   console.log('Waiting 10s...');

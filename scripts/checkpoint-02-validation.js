@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const { client } = require('../util/sdk-client.js');
-const { skillVerify } = require('../front/skill-verify.js');
+const { skillVerify } = require('../util/skill-verify.js');
 
 // failure - unsupported schema
 const obj0 = {
@@ -39,6 +39,7 @@ const obj3 = {
   hash: '81e3b744163404b9a0581547aa243fe2f12e86a1f72056512380a0429c76ef56',
 };
 
+console.log('Note: Expect 3 validation failures, followed by 1 validation success.');
 ([obj0, obj1, obj2, obj3]).forEach((obj, idx) => {
   console.log(`Object #${idx}:`);
   const result = skillVerify(obj);

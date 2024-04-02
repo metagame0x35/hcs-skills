@@ -1,9 +1,10 @@
 {
   "name": "hcs-skills",
   "version": "0.0.0",
-  "description": "Publish and subscribe to skills on Hedera Consesnsus Service (HCS)",
+  "description": "Publish and subscribe to skills on Hedera Consensus Service (HCS)",
   "main": "index.js",
   "scripts": {
+    "server": "node ./back/server-run.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -24,11 +25,14 @@
   "dependencies": {
     "@hashgraph/sdk": "2.42.0",
     "ajv": "8.12.0",
+    "body-parser": "1.20.2",
+    "cors": "2.8.5",
     "dotenv": "16.4.5",
-    "safe-stable-stringify": "2.4.3"
+    "express": "4.18.3",
+    "safe-stable-stringify": "2.4.3",
+    "socket.io": "4.7.5"
   },
   "devDependencies": {
-    "express": "^4.18.3",
     "supertest": "6.3.4"
   }
 }

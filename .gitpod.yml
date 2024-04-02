@@ -1,0 +1,16 @@
+# Configuration for gitpod.io
+# Ref: https://www.gitpod.io/docs/introduction/learn-gitpod/gitpod-yaml
+# Ref: https://www.gitpod.io/docs/configure/workspaces/tasks
+tasks:
+  - name: setup
+    init: |
+      npm install
+      cp .env.sample .env
+      echo "Go to https://portal.hedera.com/register and copy values into .env file"
+      gp sync-done setup
+ports:
+  - name: browser
+    description: HCS Skills Browser Application
+    port: 3113
+    onOpen: open-browser
+    visibility: public

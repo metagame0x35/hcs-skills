@@ -1,0 +1,99 @@
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0;
+  padding: 20px;
+  background-color: #222222; /* Mine Shaft for background */
+  color: #F4F4F4; /* Vapor for text */
+}
+
+.container {
+  border: 1px solid #464646; /* Charcoal for border */
+  padding: 25px;
+  border-radius: 5px;
+  text-align: center;
+  margin-bottom: 20px;
+  background-color: #2D2D2D; /* Slightly lighter than Mine Shaft for contrast */
+  color: #F4F4F4; /* Vapor for text */
+}
+
+input[type="text"]::placeholder {
+  color: #F4F4F4; /* Light text for contrast */
+}
+
+input[type="text"] {
+  margin-top: 10px;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #464646; /* Charcoal */
+  background-color: #333333; /* Dark input fields */
+  color: #F4F4F4; /* Light text for contrast */
+}
+
+button {
+  cursor: pointer;
+  background-color: #2D84EB; /* Hedera Blue for buttons */
+  color: #F4F4F4; /* Light text for contrast */
+  border: none;
+  margin-top: 10px;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+}
+
+button:hover {
+  background-color: #464646; /* Charcoal for hover state */
+  color: #F4F4F4; /* Keep text color light on hover */
+}
+
+table {
+  border-collapse: separate; /* Required for rounded corners */
+  width: 100%;
+  margin-top: 20px;
+  border: 5px solid #464646; /* Charcoal, thicker for visibility */
+  border-radius: 5px; /* Rounded corners */
+  background-color: #333333; /* Consistent with dark theme */
+  max-width: 1600px;
+}
+
+th {
+  background-color: #8259EF; /* Charcoal for headers */
+  color: #F4F4F4; /* Vapor for header text */
+  padding: 5px 0px 5px 10px;
+  text-align: left;
+}
+
+td {
+  border-right: 2px solid #333333; /* To match table background for a seamless look */
+  border-bottom: 2px solid #333333; /* To match table background */
+  text-align: left;
+  padding: 8px;
+  color: #F4F4F4; /* Light text for contrast */
+}
+
+th:first-child {
+  border-top-left-radius: 5px; /* Rounded top-left corner of the table */
+}
+
+th:last-child {
+  border-top-right-radius: 5px; /* Rounded top-right corner of the table */
+}
+
+tr:last-child td:first-child {
+  border-bottom-left-radius: 5px; /* Rounded bottom-left corner of the last row */
+}
+
+tr:last-child td:last-child {
+  border-bottom-right-radius: 5px; /* Rounded bottom-right corner of the last row */
+}
+
+#newTopicId {
+  border: 1px solid #3EC878; /* Hedera Green */
+  border-radius: 5px;
+  padding: 10px;
+  background-color: #3EC878; /* Hedera Green */
+  color: #F4F4F4; /* For text contrast */
+}
