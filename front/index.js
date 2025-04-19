@@ -22,7 +22,7 @@ async function subExistingTopic() {
   // NOTE: Subscribe to topic
   // Step (12) in the accompanying tutorial
   const response = await fetch(
-    /* ... */,
+    `api/v1/topic/subscribe/${textInputTopicId}`,
     {
       method: 'GET',
       headers: {

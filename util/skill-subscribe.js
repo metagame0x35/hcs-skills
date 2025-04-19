@@ -32,10 +32,11 @@ async function skillGetAll(topicId, callback) {
   }
 
   // NOTE: Mirror Node query of HCS topic
+  // Single Transaction
   // Step (10) in the accompanying tutorial
   const mirrorNodeUrl =
-    `https://testnet.mirrornode.hedera.com/api/v1/topics/${/* ... */}/messages`;
-  const fetchResponse = /* ... */;
+    `https://testnet.mirrornode.hedera.com/api/v1/topics/${topicId.toString()}/messages`;
+  const fetchResponse = await fetch(mirrorNodeUrl);
   const response = await fetchResponse.json();
   response.messages.forEach((msgBin) => parseSkill(msgBin.message, 'base64', callback));
 
@@ -63,9 +64,10 @@ async function skillSubscribe(topicId, callback) {
   await new Promise((resolve) => { setTimeout(resolve, 5_000) });
 
   // NOTE: Subscribe to HCS topic
+  // Future messages
   // Step (11) in the accompanying tutorial
   const subscription = new TopicMessageQuery()
-    /* ... */
+    .setTopicId(topicId)
     .subscribe(client, (msgBin) => parseSkill(msgBin.contents, 'utf8', callback));
 
   return subscription;
